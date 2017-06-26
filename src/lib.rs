@@ -1,5 +1,7 @@
-#[macro_use] extern crate diesel;
-#[macro_use] extern crate diesel_codegen;
+#[macro_use]
+extern crate diesel;
+#[macro_use]
+extern crate diesel_codegen;
 extern crate dotenv;
 
 pub mod schema;
@@ -10,27 +12,28 @@ use diesel::sqlite::SqliteConnection;
 use dotenv::dotenv;
 use std::env;
 
-use self::models::NewUser;
+use self::models::NewTicket;
 
 pub fn establish_connection() -> SqliteConnection {
     dotenv().ok();
 
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set");
-    SqliteConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    SqliteConnection::establish(&database_url).expect(&format!(
+        "Error connecting to {}",
+        database_url
+    ))
 }
 
-pub fn create_user(conn: &SqliteConnection, name: &str, email: &str) -> usize {
-    use schema::users;
+pub fn create_ticket(conn: &SqliteConnection, title: &str, description: &str) -> usize {
+    use schema::tickets;
 
-    let new_user = NewUser {
-        name: name,
-        email: email,
+    let new_ticket = NewTicket {
+        title: title,
+        description: description,
     };
 
-    diesel::insert(&new_user)
-        .into(users::table)
+    diesel::insert(&new_ticket)
+        .into(tickets::table)
         .execute(conn)
-        .expect("Error saving new user")
+        .expect("Error saving new ticket")
 }
