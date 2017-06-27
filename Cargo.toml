@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Kieran Eglin <kieran.eglin@gmail.com>"]
 
 [dependencies]
-diesel = { version = "0.13.0", features = ["sqlite"] }
+diesel = { version = "0.13.0", features = ["sqlite", "chrono"] }
 diesel_codegen = { version = "0.13.0", features = ["sqlite"] }
 dotenv = "0.9.0"
+chrono = "0.3.1"
