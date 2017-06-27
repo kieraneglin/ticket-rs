@@ -1,5 +1,6 @@
 use super::schema::tickets;
-use std::time::SystemTime;
+use chrono::NaiveDateTime;
+
 // #[derive(Queryable)]
 // pub struct User {
 //     pub id: i32,
@@ -13,7 +14,7 @@ pub struct Ticket {
     pub id: i32,
     pub title: String,
     pub description: String,
-    pub created_at: SystemTime,
+    pub created_at: NaiveDateTime,
 }
 
 #[derive(Insertable)]
