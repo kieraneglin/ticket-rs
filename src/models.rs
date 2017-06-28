@@ -9,6 +9,7 @@ pub struct Ticket {
     pub created_at: NaiveDateTime,
 }
 
+
 #[derive(Insertable)]
 #[table_name = "tickets"]
 pub struct NewTicket<'a> {
