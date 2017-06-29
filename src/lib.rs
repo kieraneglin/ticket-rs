@@ -25,16 +25,16 @@ pub fn establish_connection() -> SqliteConnection {
     ))
 }
 
-pub fn create_ticket(conn: &SqliteConnection, title: &str, description: &str) -> usize {
-    use schema::tickets;
-
-    let new_ticket = NewTicket {
-        title: title,
-        description: description,
-    };
-
-    diesel::insert(&new_ticket)
-        .into(tickets::table)
-        .execute(conn)
-        .expect("Error saving new ticket")
-}
+// pub fn create_ticket(conn: &SqliteConnection, title: &str, description: &str) -> usize {
+//     use schema::tickets;
+//
+//     let new_ticket = NewTicket {
+//         title: title,
+//         description: description,
+//     };
+//
+//     diesel::insert(&new_ticket)
+//         .into(tickets::table)
+//         .execute(conn)
+//         .expect("Error saving new ticket")
+// }
