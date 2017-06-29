@@ -10,7 +10,7 @@ use self::ticket::models::*;
 use qml::*;
 
 pub fn main() {
-    show(controllers::tickets::Tickets.index());
+    // show(controllers::tickets::index());
     // let mut qqae = QmlEngine::new();
     // let mut qalm = QListModel::new(&["title", "desc", "timestamp"]);
     // qalm.append_row(qvarlist![controllers::tickets::Tickets.index()].into_iter());
@@ -18,22 +18,22 @@ pub fn main() {
     // qqae.load_file("src/views/main.qml");
     // qqae.exec();
     // qqae.quit();
-    // loop {
-    //     print!("What action do you want to perform? (q to quit): ");
-    //     stdout().flush().unwrap();
-    //     let mut answer = String::new();
-    //     stdin().read_line(&mut answer).unwrap();
-    //
-    //     let answer = answer.trim_right();
-    //
-    //     match answer {
-    //         "index" => controllers::tickets::index(),
-    //         "create" => controllers::tickets::create(),
-    //         "q" => break,
-    //         _ => println!("I didn't get that"),
+    loop {
+        print!("What action do you want to perform? (q to quit): ");
+        stdout().flush().unwrap();
+        let mut answer = String::new();
+        stdin().read_line(&mut answer).unwrap();
 
-    //     }
-    // }
+        let answer = answer.trim_right();
+
+        match answer {
+            "index" => controllers::tickets::index(),
+            "create" => controllers::tickets::create(),
+            "q" => break,
+            _ => println!("I didn't get that"),
+
+        }
+    }
 }
 
 fn show(gathered: Vec<Ticket>) {
