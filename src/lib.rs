@@ -7,4 +7,5 @@ extern crate chrono;
 
 pub mod schema;
 pub mod models;
-pub mod db;
+pub mod database;
+pub mod records;
