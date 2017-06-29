@@ -10,7 +10,7 @@ use self::ticket::models::*;
 use qml::*;
 
 pub fn main() {
-    // show(controllers::tickets::index());
+    show(*Ticket::all());
     // let mut qqae = QmlEngine::new();
     // let mut qalm = QListModel::new(&["title", "desc", "timestamp"]);
     // qalm.append_row(qvarlist![controllers::tickets::Tickets.index()].into_iter());
@@ -18,6 +18,7 @@ pub fn main() {
     // qqae.load_file("src/views/main.qml");
     // qqae.exec();
     // qqae.quit();
+
     // loop {
     //     print!("What action do you want to perform? (q to quit): ");
     //     stdout().flush().unwrap();
@@ -50,20 +51,8 @@ fn show(gathered: Vec<Ticket>) {
 
 fn form_list(gathered: &[Ticket]) -> QTicketList {
     let mut qalm = QTicketList::new();
-    qalm.set_data(format_for_qml(gathered));
+    qalm.set_data(Ticket::to_qformat(gathered));
     qalm
-}
-
-fn format_for_qml(vec: &[Ticket]) -> Vec<(String, String, String)> {
-    vec.into_iter()
-        .map(|tick| {
-            (
-                tick.title.clone(),
-                tick.description.clone(),
-                tick.created_at.clone().to_string(),
-            )
-        })
-        .collect()
 }
 
 Q_LISTMODEL!{

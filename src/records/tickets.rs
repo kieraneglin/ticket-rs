@@ -18,15 +18,14 @@ impl Ticket {
             .expect("Error saving new ticket");
 
         // Return the last ticket.  Not ideal, but ID isn't returned by `insert` for SQLite
-
-        Ticket::last()
+        Self::last()
     }
 
-    pub fn all() -> Box<Vec<Ticket>> {
+    pub fn all() -> Box<Vec<Self>> {
         use schema::tickets::dsl::*;
 
         let connection = database::establish_connection();
-        let results = tickets.load::<Ticket>(&connection).expect(
+        let results = tickets.load::<Self>(&connection).expect(
             "Error loading tickets",
         );
 
@@ -34,11 +33,11 @@ impl Ticket {
         Box::new(results)
     }
 
-    pub fn find(record: i32) -> Ticket {
+    pub fn find(record: i32) -> Self {
         let connection = database::establish_connection();
         tickets::table
             .find(record)
-            .first::<Ticket>(&connection)
+            .first::<Self>(&connection)
             .expect("Error loading ticket")
     }
 
@@ -52,11 +51,23 @@ impl Ticket {
             .expect("Error deleting posts")
     }
 
-    pub fn last() -> Ticket {
+    pub fn last() -> Self {
         use self::tickets::dsl::{tickets, id};
 
         let connection = database::establish_connection();
 
         tickets.order(id.desc()).first(&connection).unwrap()
+    }
+
+    pub fn to_qformat(vec: &[Self]) -> Vec<(String, String, String)> {
+        vec.into_iter()
+            .map(|tick| {
+                (
+                    tick.title.clone(),
+                    tick.description.clone(),
+                    tick.created_at.clone().to_string(),
+                )
+            })
+            .collect()
     }
 }
